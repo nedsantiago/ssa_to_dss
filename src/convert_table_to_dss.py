@@ -29,7 +29,8 @@ def df_to_dss(df, dss_filename):
 
     # create a constant time series list
     # datetime year, month, day, hour, minute
-    timeseries_list = [datetime(2000,1, mintues // 1440 + 1, mintues // 60 % 24, mintues % 60) for mintues in range(0, row_count // steps_to_average + 1)]
+    minutes_per_interval = 5
+    timeseries_list = [datetime(2000,1, mintues // 1440 + 1, mintues // 60 % 24, mintues % 60) for mintues in range(0, row_count // steps_to_average + 1) * minutes_per_interval]
 
     # iterate over all columns
     for i in range(0, col_count):
