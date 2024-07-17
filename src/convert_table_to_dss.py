@@ -26,11 +26,22 @@ def df_to_dss(df, dss_filename):
 
     # set the steps to average over
     steps_to_average = 1
+    # set minutes per interval
+    minutes_per_interval = 5
 
     # create a constant time series list
     # datetime year, month, day, hour, minute
-    minutes_per_interval = 5
-    timeseries_list = [datetime(2000,1, mintues // 1440 + 1, mintues // 60 % 24, mintues % 60) for mintues in range(0, row_count // steps_to_average + 1) * minutes_per_interval]
+    timeseries_list = [
+        datetime(
+            2000,                                           # year
+            1,                                              # month
+            interval * minutes_per_interval // 1440 + 1,    # day
+            interval * minutes_per_interval // 60 % 24,     # hour
+            interval * minutes_per_interval % 60            # minute
+            ) for interval in range(
+                0, 
+                row_count  // steps_to_average + 1
+                )]
 
     # iterate over all columns
     for i in range(0, col_count):
